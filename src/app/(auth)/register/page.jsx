@@ -19,7 +19,6 @@ export default function RegisterPage() {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, username, email, password);
-      console.log(username, email, password);
       // Handle successful sign-up (e.g., redirect to a dashboard)
     } catch (error) {
       setError(error.message);
