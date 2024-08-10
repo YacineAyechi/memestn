@@ -59,7 +59,7 @@ export default function Header() {
               Sign In
             </Link>
             <Link
-              href={"/login"}
+              href={"/register"}
               className="border-2 border-[#F4F4F4] p-3 rounded-xl cursor-pointer hover:bg-[#dadada] hover:border-[#dadada] transition-all duration-300 ease-in-out"
             >
               Sign Up
