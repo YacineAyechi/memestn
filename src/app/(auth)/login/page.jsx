@@ -93,8 +93,10 @@ export default function LoginPage() {
         <div className="mt-3 flex items-center justify-center">
           <p className="text-white">Forgot Your Password?</p>
           <Link
-            href={"/"}
+            href={"/reset"}
             className="ml-[3px] text-[#4A90E2] hover:text-[#63B3ED] transition-colors duration-150"
+            id="reset"
+            name="reset"
           >
             Reset
           </Link>
