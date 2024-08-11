@@ -18,7 +18,7 @@ export default function RegisterPage() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, username, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       // Handle successful sign-up (e.g., redirect to a dashboard)
     } catch (error) {
       setError(error.message);
@@ -26,64 +26,62 @@ export default function RegisterPage() {
   };
 
   return (
-    <div>
-      <div className="flex justify-center items-center h-[76.9vh]">
-        <form onSubmit={handleSignUp}>
-          {error && <p style={{ color: "red" }}>{error}</p>}
-          <div>
-            <label>Username</label>
-            <br />
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={handleUsernameChange}
-              className="mt-1 border-2 border-[#dadada] px-2 py-3 rounded-md w-[300px]"
-            />
-          </div>
+    <div className="flex justify-center items-center h-[76.9vh]">
+      <form onSubmit={handleSignUp} className="p-8 rounded-lg shadow-lg">
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <div>
+          <label className="text-white">Username</label>
           <br />
-          <div>
-            <label>Email</label>
-            <br />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={handleEmailChange}
-              className="mt-1 border-2 border-[#dadada] px-2 py-3 rounded-md w-[300px]"
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={handleUsernameChange}
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+          />
+        </div>
+        <br />
+        <div>
+          <label className="text-white">Email</label>
           <br />
-          <div>
-            <label>Password</label>
-            <br />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={handlePasswordChange}
-              className="mt-1 border-2 border-[#dadada] px-2 py-3 rounded-md w-[300px]"
-            />
-          </div>
-          <button className="mt-4 mb-4 w-full rounded-md px-2 py-3 border-2 flex items-center justify-center mx-auto gap-2 border-slate-200  text-slate-700  hover:border-slate-400  hover:text-slate-900 hover:shadow transition duration-150">
-            <Image
-              className="w-6 h-6"
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              loading="lazy"
-              alt="google logo"
-              width={24}
-              height={24}
-            />
-            <span>Sign Up with Google</span>
-          </button>
-          <button
-            type="submit"
-            className="border-2 border-[#dadada] bg-[#dadada] p-3 rounded-md w-full"
-          >
-            Sign Up
-          </button>
-        </form>
-      </div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleEmailChange}
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+          />
+        </div>
+        <br />
+        <div>
+          <label className="text-white">Password</label>
+          <br />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+          />
+        </div>
+        <button className="mt-6 mb-4 w-full rounded-md px-2 py-3 flex items-center justify-center border-2 gap-2 bg-[#1A202C] text-white hover:bg-[#4A90E2] hover:border-[#4A90E2] transition-colors duration-150">
+          <Image
+            className="w-6 h-6"
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            loading="lazy"
+            alt="google logo"
+            width={24}
+            height={24}
+          />
+          <span>Sign Up with Google</span>
+        </button>
+        <button
+          type="submit"
+          className="bg-[#4A90E2] text-white p-3 rounded-md w-full hover:bg-[#3B82F6] transition-colors duration-150"
+        >
+          Sign Up
+        </button>
+      </form>
     </div>
   );
 }

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-bg: #1a202c; /* Dark blue-gray for main background */
+  --secondary-bg: #2d3748; /* Darker blue-gray for containers and sections */
+  --primary-text: #e2e8f0; /* Light gray for text on dark background */
+  --secondary-text: #a0aec0; /* Medium gray for less prominent text */
+  --accent-color-1: #4a90e2; /* Blue for primary buttons and links */
+  --accent-color-2: #ffd700; /* Gold for highlighting and interactive elements */
+  --accent-color-3: #ff6347; /* Tomato for alerts and notifications */
+}
+
+body {
+  background-color: var(--primary-bg);
+}

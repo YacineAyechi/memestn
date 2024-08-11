@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function Card() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen bg-[#1A202C]">
       <div>
         <div className="flex items-center">
-          <Link href={"/"} className="flex items-center ">
+          <Link href={"/"} className="flex items-center">
             <div>
               <Image
                 src="/avatar.jpg"
@@ -18,16 +18,16 @@ export default function Card() {
               />
             </div>
             <div>
-              <p className="font-bold ml-2 hover:text-blue-500 transition-all duration-200 ease-in-out">
+              <p className="font-bold ml-2 text-white hover:text-[#4A90E2] transition-all duration-200 ease-in-out">
                 Yacine Ayachi
               </p>
             </div>
           </Link>
           <div>
-            <p className="bg-black w-2 h-2 rounded-full ml-2 mr-2"></p>
+            <p className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></p>
           </div>
           <div>
-            <p className="text-sm text-[#868686]">15 m. ago</p>
+            <p className="text-sm text-[#A0AEC0]">15 m. ago</p>
           </div>
         </div>
 
@@ -43,17 +43,18 @@ export default function Card() {
         </div>
 
         <div className="flex">
-          <div className="flex items-center p-3 rounded-xl w-20 cursor-pointer bg-[#F4F4F4] hover:bg-[#dadada] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-20 cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/heart.svg"
               alt="Like Icon"
               priority
               width={24}
               height={24}
+              className=""
             />
-            <p className="font-bold ml-2 ">12</p>
+            <p className="font-bold ml-2 text-white">12</p>
           </div>
-          <div className="flex items-center p-3 rounded-xl w-20 ml-5 mr-5 cursor-pointer bg-[#F4F4F4] hover:bg-[#dadada] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-20 ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/comment.svg"
               alt="Comment Icon"
@@ -61,9 +62,9 @@ export default function Card() {
               width={24}
               height={24}
             />
-            <p className="font-bold ml-2 ">12</p>
+            <p className="font-bold ml-2 text-white">12</p>
           </div>
-          <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#F4F4F4] hover:bg-[#dadada] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/share.svg"
               alt="Share Icon"
