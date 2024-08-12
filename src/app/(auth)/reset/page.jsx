@@ -28,13 +28,13 @@ export default function ResetPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-4 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+            className="mt-3 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#FEC601]"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-[#4A90E2] text-white p-3 rounded-md w-full hover:bg-[#3B82F6] transition-colors duration-150 mt-6"
+          className="bg-[#FEC601] text-white p-3 rounded-md w-full hover:bg-[#fec701e5] transition-colors duration-150 mt-6"
         >
           Reset Password
         </button>

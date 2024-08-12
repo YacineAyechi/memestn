@@ -18,7 +18,7 @@ export default function Card() {
               />
             </div>
             <div>
-              <p className="font-bold ml-2 text-white hover:text-[#4A90E2] transition-all duration-200 ease-in-out">
+              <p className="font-bold ml-2 text-white hover:text-[#8FA6CB] transition-all duration-200 ease-in-out">
                 Yacine Ayachi
               </p>
             </div>
@@ -43,7 +43,7 @@ export default function Card() {
         </div>
 
         <div className="flex">
-          <div className="flex items-center p-3 rounded-xl w-20 cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-20 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/heart.svg"
               alt="Like Icon"
@@ -54,7 +54,7 @@ export default function Card() {
             />
             <p className="font-bold ml-2 text-white">12</p>
           </div>
-          <div className="flex items-center p-3 rounded-xl w-20 ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-20 ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/comment.svg"
               alt="Comment Icon"
@@ -64,7 +64,7 @@ export default function Card() {
             />
             <p className="font-bold ml-2 text-white">12</p>
           </div>
-          <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#4A90E2] transition-all duration-300 ease-in-out">
+          <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
             <Image
               src="/icons/share.svg"
               alt="Share Icon"

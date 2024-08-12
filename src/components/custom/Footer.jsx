@@ -8,7 +8,7 @@ export default function Footer() {
         <Link
           href=""
           target="_blank"
-          className="text-[#E2E8F0] hover:text-[#4A90E2] transition-colors duration-300"
+          className="text-[#E2E8F0] hover:text-[#8FA6CB] transition-colors duration-300"
         >
           <FaFacebook className="text-2xl mx-2" />
         </Link>
@@ -16,7 +16,7 @@ export default function Footer() {
         <Link
           href=""
           target="_blank"
-          className="text-[#E2E8F0] hover:text-[#4A90E2] transition-colors duration-300"
+          className="text-[#E2E8F0] hover:text-[#8FA6CB] transition-colors duration-300"
         >
           <FaInstagram className="text-2xl mx-2" />
         </Link>

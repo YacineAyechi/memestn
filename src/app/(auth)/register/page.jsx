@@ -37,7 +37,7 @@ export default function RegisterPage() {
             placeholder="Username"
             value={username}
             onChange={handleUsernameChange}
-            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#FEC601]"
           />
         </div>
         <br />
@@ -49,7 +49,7 @@ export default function RegisterPage() {
             placeholder="Email"
             value={email}
             onChange={handleEmailChange}
-            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#FEC601]"
           />
         </div>
         <br />
@@ -61,10 +61,11 @@ export default function RegisterPage() {
             placeholder="Password"
             value={password}
             onChange={handlePasswordChange}
-            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#4A90E2]"
+            className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#FEC601]"
           />
         </div>
-        <button className="mt-6 mb-4 w-full rounded-md px-2 py-3 flex items-center justify-center border-2 gap-2 bg-[#1A202C] text-white hover:bg-[#4A90E2] hover:border-[#4A90E2] transition-colors duration-150">
+
+        <button className="mt-6 mb-4 w-full rounded-md px-2 py-3 flex items-center justify-center border-2 gap-2 bg-[#1A202C] text-white hover:bg-[#8FA6CB] hover:border-[#8FA6CB] transition-colors duration-150">
           <Image
             className="w-6 h-6"
             src="https://www.svgrepo.com/show/475656/google-color.svg"
@@ -77,7 +78,7 @@ export default function RegisterPage() {
         </button>
         <button
           type="submit"
-          className="bg-[#4A90E2] text-white p-3 rounded-md w-full hover:bg-[#3B82F6] transition-colors duration-150"
+          className="bg-[#FEC601] text-white p-3 rounded-md w-full hover:bg-[#fec701e5] transition-colors duration-150"
         >
           Sign Up
         </button>
