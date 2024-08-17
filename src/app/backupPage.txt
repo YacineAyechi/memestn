@@ -1,0 +1,252 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { db, auth } from "@/lib/firebase";
+import {
+  collection,
+  query,
+  getDocs,
+  limit,
+  doc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+  onSnapshot,
+  getDoc,
+} from "firebase/firestore";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Home() {
+  const [memes, setMemes] = useState([]);
+
+  useEffect(() => {
+    const fetchMemes = async () => {
+      try {
+        const memesCollection = collection(db, "memes");
+        const q = query(memesCollection, limit(10)); // Fetch 10 random memes
+        const querySnapshot = await getDocs(q);
+        const memesData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+          likes: doc.data().likes || [],
+          comments: doc.data().comments || [],
+        }));
+        setMemes(memesData);
+      } catch (error) {
+        console.error("Error fetching memes:", error.message);
+      }
+    };
+
+    fetchMemes();
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#1A202C] space-y-8">
+      {memes.map((meme) => (
+        <MemeCard key={meme.id} meme={meme} />
+      ))}
+    </div>
+  );
+}
+
+function MemeCard({ meme }) {
+  const [likes, setLikes] = useState(meme.likes || []);
+  const [comments, setComments] = useState(meme.comments || []);
+  const [userHasLiked, setUserHasLiked] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    profilePictureUrl: "",
+  });
+
+  useEffect(() => {
+    if (auth.currentUser) {
+      setUserHasLiked(likes.includes(auth.currentUser.uid));
+    }
+  }, [likes]);
+
+  useEffect(() => {
+    const memeRef = doc(db, "memes", meme.id);
+
+    const unsubscribe = onSnapshot(memeRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const memeData = docSnap.data();
+        setLikes(memeData.likes || []);
+        setComments(memeData.comments || []);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [meme.id]);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userRef = doc(db, "users", meme.userId);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          const { username, profilePictureUrl } = userSnap.data();
+          setUserInfo({ username, profilePictureUrl });
+        }
+      } catch (error) {
+        console.error("Error fetching user info:", error.message);
+      }
+    };
+
+    fetchUserInfo();
+  }, [meme.userId]);
+
+  const handleLike = async () => {
+    const memeRef = doc(db, "memes", meme.id);
+    try {
+      if (userHasLiked) {
+        await updateDoc(memeRef, {
+          likes: arrayRemove(auth.currentUser.uid),
+        });
+      } else {
+        await updateDoc(memeRef, {
+          likes: arrayUnion(auth.currentUser.uid),
+        });
+      }
+      setUserHasLiked(!userHasLiked);
+    } catch (error) {
+      console.error("Error updating likes:", error.message);
+    }
+  };
+
+  const formatTimeAgo = (timestamp) => {
+    if (!timestamp || !timestamp.toDate) {
+      return "Unknown time";
+    }
+
+    const date = timestamp.toDate();
+    const seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return `${Math.floor(interval)} year${
+        Math.floor(interval) > 1 ? "s" : ""
+      } ago`;
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return `${Math.floor(interval)} month${
+        Math.floor(interval) > 1 ? "s" : ""
+      } ago`;
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return `${Math.floor(interval)} day${
+        Math.floor(interval) > 1 ? "s" : ""
+      } ago`;
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return `${Math.floor(interval)} hour${
+        Math.floor(interval) > 1 ? "s" : ""
+      } ago`;
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return `${Math.floor(interval)} minute${
+        Math.floor(interval) > 1 ? "s" : ""
+      } ago`;
+    }
+    return `${Math.floor(seconds)} second${
+      Math.floor(seconds) > 1 ? "s" : ""
+    } ago`;
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="mb-6">
+        <div className="flex items-center">
+          <Link href={`/${meme.userId}`} className="flex items-center">
+            <Image
+              src={userInfo.profilePictureUrl || "/default-avatar.jpg"}
+              alt={userInfo.username}
+              className="rounded-full"
+              priority
+              width={48}
+              height={48}
+            />
+            <p className="font-bold ml-2 text-white hover:text-[#8FA6CB] transition-all duration-200 ease-in-out">
+              {userInfo.username}
+            </p>
+          </Link>
+          <div className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></div>
+          <p className="text-sm text-[#A0AEC0]">
+            {formatTimeAgo(meme.timestamp)}
+          </p>
+        </div>
+
+        <div className="my-6 w-full h-full">
+          <Image
+            src={meme.imageUrl}
+            alt={meme.caption || "Meme"}
+            className="rounded-3xl object-cover"
+            priority
+            width={627}
+            height={425}
+          />
+        </div>
+
+        <div className="flex">
+          <LikeButton
+            likes={likes}
+            userHasLiked={userHasLiked}
+            handleLike={handleLike}
+          />
+          <CommentButton comments={comments} />
+          <ShareButton />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LikeButton({ likes, userHasLiked, handleLike }) {
+  return (
+    <div
+      onClick={handleLike}
+      className="flex items-center p-3 rounded-xl w-20 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
+    >
+      <Image
+        src={userHasLiked ? "/icons/heart-filled.svg" : "/icons/heart.svg"}
+        alt="Like Icon"
+        width={24}
+        height={24}
+      />
+      <p className="font-bold ml-2 text-white">{likes.length}</p>
+    </div>
+  );
+}
+
+function CommentButton({ comments }) {
+  return (
+    <div className="flex items-center p-3 rounded-xl w-20 ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
+      <Image
+        src="/icons/comment.svg"
+        alt="Comment Icon"
+        priority
+        width={24}
+        height={24}
+      />
+      <p className="font-bold ml-2 text-white">{comments.length}</p>
+    </div>
+  );
+}
+
+function ShareButton() {
+  return (
+    <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
+      <Image
+        src="/icons/share.svg"
+        alt="Share Icon"
+        priority
+        width={24}
+        height={24}
+      />
+    </div>
+  );
+}

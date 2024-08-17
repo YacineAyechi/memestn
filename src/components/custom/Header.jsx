@@ -97,16 +97,6 @@ export default function Header() {
             <p className="font-bold ml-2 md:ml-3">{username || user.email}</p>
           </Link>
 
-          {/* <Link href={"/create"} className="ml-3 flex items-center">
-            <Image
-              src="/icons/plus.svg"
-              alt="Create Meme Icon"
-              priority
-              width={24}
-              height={24}
-            />
-          </Link> */}
-
           <Link
             href={"/"}
             onClick={handleSignOut}

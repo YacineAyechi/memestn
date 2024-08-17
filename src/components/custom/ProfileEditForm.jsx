@@ -61,7 +61,7 @@ export default function ProfileEditForm({ userProfile }) {
           className="mt-1 w-full p-2 rounded-md bg-gray-700 text-white"
         />
       </div>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <label className="text-white">Email</label>
         <input
           type="email"
@@ -69,7 +69,7 @@ export default function ProfileEditForm({ userProfile }) {
           onChange={(e) => setEmail(e.target.value)}
           className="mt-1 w-full p-2 rounded-md bg-gray-700 text-white"
         />
-      </div>
+      </div> */}
       <div className="mt-4">
         <label className="text-white">Profile Picture URL</label>
         <input

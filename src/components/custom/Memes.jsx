@@ -14,6 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { db, auth } from "@/lib/firebase";
 import Image from "next/image";
+import Link from "next/link";
 import NoMemesFound from "./NoMemesFound";
 
 export default function Memes({ userId }) {
@@ -90,53 +91,58 @@ export default function Memes({ userId }) {
           const userHasLiked = meme.likes?.includes(auth.currentUser.uid);
 
           return (
-            <div key={meme.id} className="relative group">
-              <div className="w-full h-64">
-                <Image
-                  src={meme.imageUrl}
-                  alt={meme.title || "Meme"}
-                  className="rounded-md object-cover w-full h-full"
-                  width={256}
-                  height={256}
-                  priority
-                />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-md">
-                <div className="flex">
-                  <div
-                    className="flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
-                    onClick={() => handleLike(meme.id)}
-                  >
-                    <Image
-                      src={
-                        userHasLiked
-                          ? "/icons/heart-filled.svg"
-                          : "/icons/heart.svg"
-                      }
-                      alt="Like Icon"
-                      priority
-                      width={24}
-                      height={24}
-                    />
-                    <p className="font-bold ml-2 text-white">
-                      {meme.likes?.length || 0}
-                    </p>
-                  </div>
-                  <div className="flex items-center p-3 rounded-xl ml-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
-                    <Image
-                      src="/icons/comment.svg"
-                      alt="Comment Icon"
-                      priority
-                      width={24}
-                      height={24}
-                    />
-                    <p className="font-bold ml-2 text-white">
-                      {meme.comments || 0}
-                    </p>
+            <Link key={meme.id} href={`/meme/${meme.id}`} passHref>
+              <div className="relative group cursor-pointer">
+                <div className="w-full h-64">
+                  <Image
+                    src={meme.imageUrl}
+                    alt={meme.title || "Meme"}
+                    className="rounded-md object-cover w-full h-full"
+                    width={256}
+                    height={256}
+                    priority
+                  />
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out rounded-md">
+                  <div className="flex">
+                    <div
+                      className="flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleLike(meme.id);
+                      }}
+                    >
+                      <Image
+                        src={
+                          userHasLiked
+                            ? "/icons/heart-filled.svg"
+                            : "/icons/heart.svg"
+                        }
+                        alt="Like Icon"
+                        priority
+                        width={24}
+                        height={24}
+                      />
+                      <p className="font-bold ml-2 text-white">
+                        {meme.likes?.length || 0}
+                      </p>
+                    </div>
+                    <div className="flex items-center p-3 rounded-xl ml-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
+                      <Image
+                        src="/icons/comment.svg"
+                        alt="Comment Icon"
+                        priority
+                        width={24}
+                        height={24}
+                      />
+                      <p className="font-bold ml-2 text-white">
+                        {meme.comments?.length || 0}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

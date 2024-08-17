@@ -71,6 +71,7 @@ export default function RegisterPage() {
         username,
         email: user.email,
         profilePictureUrl,
+        role: "member",
       });
 
       console.log("User registered and data saved:", user.uid);

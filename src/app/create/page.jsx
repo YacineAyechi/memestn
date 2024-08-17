@@ -72,9 +72,9 @@ export default function CreateMeme() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen ">
-      <div className="max-w-2xl mx-auto p-6 bg-[#2D3748] text-white rounded-lg shadow-md mt-10">
-        <h1 className="text-3xl font-bold mb-6 text-center">Post a Meme</h1>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="max-w-lg w-full p-6 bg-gray-900 text-white rounded-lg shadow-lg">
+        <h1 className="text-4xl font-bold mb-6 text-center">Post a Meme</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
@@ -88,7 +88,7 @@ export default function CreateMeme() {
               id="caption"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
-              className="w-full p-3 rounded-lg bg-[#1A202C] text-white placeholder-gray-400 focus:outline-none"
+              className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
               placeholder="Enter your caption"
             />
           </div>
@@ -104,17 +104,43 @@ export default function CreateMeme() {
               id="imageFile"
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full p-3 rounded-lg bg-[#1A202C] text-white placeholder-gray-400 focus:outline-none"
+              className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
             />
           </div>
           <button
             type="submit"
-            className={`w-full p-3 rounded-lg text-white font-semibold bg-[#FEC601] hover:bg-[#FFC107] transition-all duration-300 ease-in-out ${
+            className={`w-full p-3 rounded-lg text-white font-semibold bg-yellow-500 hover:bg-yellow-400 transition-all duration-300 ease-in-out ${
               uploading ? "cursor-not-allowed opacity-50" : ""
             }`}
             disabled={uploading}
           >
-            {uploading ? "Uploading..." : "Create Meme"}
+            {uploading ? (
+              <span className="flex items-center justify-center">
+                <svg
+                  className="animate-spin h-5 w-5 mr-3"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 1116 0A8 8 0 014 12zm2 0a6 6 0 1012 0A6 6 0 006 12z"
+                  />
+                </svg>
+                Uploading...
+              </span>
+            ) : (
+              "Create Meme"
+            )}
           </button>
         </form>
       </div>

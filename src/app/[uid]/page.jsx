@@ -64,7 +64,20 @@ export default function UserProfilePage({ params }) {
             width={200}
             height={200}
           />
-          <p className="font-bold text-2xl mt-5">{userProfile.username}</p>
+          {/* <p className="font-bold text-2xl mt-5">{userProfile.username}</p> */}
+          <div className="flex items-center justify-center mx-auto">
+            <p className="font-bold text-2xl mt-5">{userProfile.username}</p>
+            {userProfile.role === "verified" && (
+              <Image
+                src="/icons/verified.svg"
+                alt="Verified Icon"
+                className="ml-2 mt-5"
+                priority
+                width={24}
+                height={24}
+              />
+            )}
+          </div>
           {isCurrentUser && (
             <button
               onClick={() => setIsEditing((prev) => !prev)}
