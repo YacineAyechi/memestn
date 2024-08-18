@@ -257,7 +257,7 @@ function UserProfileLink({ userId }) {
           </span>
         </Link>
 
-        {userInfo.role === "verified" && (
+        {userInfo.role === "verified" ? (
           <Image
             src="/icons/verified.svg"
             alt="Verified Icon"
@@ -266,7 +266,29 @@ function UserProfileLink({ userId }) {
             width={18}
             height={18}
           />
-        )}
+        ) : userInfo.role === "frezaa" ? (
+          // <Image
+          //   src="/icons/freza.svg"
+          //   alt="Freza Icon"
+          //   className="ml-1"
+          //   priority
+          //   width={18}
+          //   height={18}
+          // />
+
+          <>
+            <Image
+              src="/icons/moderator.svg"
+              alt="Freza Icon"
+              className="ml-1"
+              priority
+              width={18}
+              height={18}
+            />
+            <span className="font-bold">🍓</span>
+          </>
+        ) : null}
+
         <span className="font-bold ml-1">:</span>
       </div>
     </div>
