@@ -98,115 +98,117 @@ export default function MemeDetailPage() {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white ">
       {meme ? (
-        <div className="max-w-4xl mx-auto p-6">
-          <div className="mb-6">
-            <p className="text-xl mt-16 mb-4 capitalize">{meme.caption}</p>
+        <div className="">
+          <div className="max-w-5xl mx-auto  mt-16 pt-10 pb-12 px-16 rounded-lg bg-gray-800">
+            <div className="mb-6">
+              <p className="text-xl mb-4 capitalize">{meme.caption}</p>
 
-            <Image
-              src={meme.imageUrl}
-              alt={meme.caption || "Meme"}
-              className="rounded-lg w-full mb-4"
-              width={800}
-              height={800}
-              priority
-            />
+              <Image
+                src={meme.imageUrl}
+                alt={meme.caption || "Meme"}
+                className="rounded-lg w-full mb-4"
+                width={800}
+                height={800}
+                priority
+              />
 
-            <div className="flex">
-              <div
-                onClick={handleLike}
-                className={`flex items-center p-3 rounded-xl ${
-                  comments.length < 10 ? "w-16" : "w-20"
-                }  cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
-                  newLike ? "bounce" : ""
-                }`}
-              >
-                <Image
-                  src={
-                    userHasLiked
-                      ? "/icons/heart-filled.svg"
-                      : "/icons/heart.svg"
-                  }
-                  alt="Like Icon"
-                  width={24}
-                  height={24}
-                />
-                <p
-                  className={`font-bold ml-2 text-white ${
-                    newLike ? "fade-in" : ""
+              <div className="flex">
+                <div
+                  onClick={handleLike}
+                  className={`flex items-center p-3 rounded-xl ${
+                    comments.length < 10 ? "w-16" : "w-20"
+                  }  cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
+                    newLike ? "bounce" : ""
                   }`}
                 >
-                  {likes.length}
-                </p>
-              </div>
+                  <Image
+                    src={
+                      userHasLiked
+                        ? "/icons/heart-filled.svg"
+                        : "/icons/heart.svg"
+                    }
+                    alt="Like Icon"
+                    width={24}
+                    height={24}
+                  />
+                  <p
+                    className={`font-bold ml-2 text-white ${
+                      newLike ? "fade-in" : ""
+                    }`}
+                  >
+                    {likes.length}
+                  </p>
+                </div>
 
-              <div
-                className={`flex items-center p-3 rounded-xl ${
-                  comments.length < 10 ? "w-16" : "w-20"
-                } ${
-                  newComment ? "fade-in" : "" ? "bounce" : ""
-                } ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
-              >
-                <Image
-                  src="/icons/comment.svg"
-                  alt="Comment Icon"
-                  priority
-                  width={24}
-                  height={24}
-                />
-                <p
-                  className={`font-bold ml-2 text-white ${
-                    newComment ? "fade-in" : ""
-                  }`}
+                <div
+                  className={`flex items-center p-3 rounded-xl ${
+                    comments.length < 10 ? "w-16" : "w-20"
+                  } ${
+                    newComment ? "fade-in" : "" ? "bounce" : ""
+                  } ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
                 >
-                  {comments.length}
-                </p>
-              </div>
+                  <Image
+                    src="/icons/comment.svg"
+                    alt="Comment Icon"
+                    priority
+                    width={24}
+                    height={24}
+                  />
+                  <p
+                    className={`font-bold ml-2 text-white ${
+                      newComment ? "fade-in" : ""
+                    }`}
+                  >
+                    {comments.length}
+                  </p>
+                </div>
 
-              <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
-                <Image
-                  src="/icons/share.svg"
-                  alt="Share Icon"
-                  priority
-                  width={24}
-                  height={24}
-                />
+                <div className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out">
+                  <Image
+                    src="/icons/share.svg"
+                    alt="Share Icon"
+                    priority
+                    width={24}
+                    height={24}
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold mb-4">Comments</h2>
-            {comments.length > 0 ? (
-              <ul>
-                {comments.map((c, index) => (
-                  <li key={index} className="mb-2">
-                    <div className="flex items-center space-x-2">
-                      <UserProfileLink userId={c.userId} />
-                      <p>{c.text}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No comments yet.</p>
-            )}
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-4">Comments</h2>
+              {comments.length > 0 ? (
+                <ul>
+                  {comments.map((c, index) => (
+                    <li key={index} className="mb-2">
+                      <div className="flex items-center space-x-2">
+                        <UserProfileLink userId={c.userId} />
+                        <p>{c.text}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No comments yet.</p>
+              )}
+            </div>
+            <form onSubmit={handleCommentSubmit} className="flex flex-col">
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="w-full p-3 rounded-lg bg-[#2D3748] text-white placeholder-gray-400 focus:outline-none"
+                placeholder="Add a comment..."
+              />
+              <button
+                type="submit"
+                className="mt-4 p-3 rounded-lg bg-[#FEC601] text-white font-semibold hover:bg-[#FFC107] transition-all duration-300 ease-in-out"
+              >
+                Post Comment
+              </button>
+            </form>
           </div>
-          <form onSubmit={handleCommentSubmit} className="flex flex-col">
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="w-full p-3 rounded-lg bg-[#2D3748] text-white placeholder-gray-400 focus:outline-none"
-              placeholder="Add a comment..."
-            />
-            <button
-              type="submit"
-              className="mt-4 p-3 rounded-lg bg-[#FEC601] text-white font-semibold hover:bg-[#FFC107] transition-all duration-300 ease-in-out"
-            >
-              Post Comment
-            </button>
-          </form>
         </div>
       ) : (
         <p>Loading...</p>
@@ -241,7 +243,7 @@ function UserProfileLink({ userId }) {
   }, [userId]);
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-2 bg-gray-800 rounded-md p-1">
       <Image
         src={userInfo.profilePictureUrl}
         alt={userInfo.username}
@@ -267,15 +269,6 @@ function UserProfileLink({ userId }) {
             height={18}
           />
         ) : userInfo.role === "frezaa" ? (
-          // <Image
-          //   src="/icons/freza.svg"
-          //   alt="Freza Icon"
-          //   className="ml-1"
-          //   priority
-          //   width={18}
-          //   height={18}
-          // />
-
           <>
             <Image
               src="/icons/moderator.svg"
@@ -289,7 +282,7 @@ function UserProfileLink({ userId }) {
           </>
         ) : null}
 
-        <span className="font-bold ml-1">:</span>
+        <span className="font-bold ml-1 mr-1">:</span>
       </div>
     </div>
   );
