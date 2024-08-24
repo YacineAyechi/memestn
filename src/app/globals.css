@@ -16,6 +16,10 @@ body {
   background-color: var(--primary-bg);
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 /* styles/globals.css or any CSS file */
 @keyframes fadeIn {
   from {

@@ -16,8 +16,9 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
+import withAuthRedirect from "@/components/custom/withAuthRedirect";
 
-export default function LoginPage() {
+function LoginPage() {
   const router = useRouter();
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -70,7 +71,13 @@ export default function LoginPage() {
         onSubmit={handleSignIn}
         className="p-6 md:p-8 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
       >
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {/* {error && <p className="text-red-500 mb-4">{error}</p>} */}
+        {error && (
+          <div className="bg-red-500 text-white p-3 rounded-lg mb-4">
+            {error}
+          </div>
+        )}
+
         <div className="mt-5">
           <label className="text-white">Username or Email</label>
           <br />
@@ -94,22 +101,6 @@ export default function LoginPage() {
             className="mt-1 border-2 border-[#4A5568] bg-[#2D3748] text-white px-3 py-3 rounded-md w-full focus:outline-none focus:border-[#FEC601]"
           />
         </div>
-        {/* 
-        <button
-          onClick={handleGoogleSignIn}
-          className="mt-6 mb-4 w-full rounded-md px-2 py-3 flex items-center justify-center border-2 gap-2 bg-[#1A202C] text-white hover:bg-[#8FA6CB] hover:border-[#8FA6CB] transition-colors duration-150"
-        >
-          <Image
-            className="w-6 h-6"
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            loading="lazy"
-            alt="google logo"
-            width={24}
-            height={24}
-          />
-          <span>Sign In with Google</span>
-        </button> */}
-
         <button
           type="submit"
           className="mt-6 bg-[#FEC601] text-white p-3 rounded-md w-full hover:bg-[#fec701e5] transition-colors duration-150"
@@ -117,7 +108,17 @@ export default function LoginPage() {
           Sign In
         </button>
 
-        <div className="mt-3 flex items-center justify-center text-sm">
+        <div className="mt-6 flex items-center justify-center text-sm">
+          <p className="text-white">By logging in, you agree to our</p>
+          <Link
+            href="/privacy-terms"
+            className="ml-1 text-[#FEC601] hover:text-[#fec701e5] transition-colors duration-150"
+          >
+            Privacy Policy.
+          </Link>
+        </div>
+
+        <div className="mt-2 flex items-center justify-center text-sm">
           <p className="text-white">Forgot Your Password?</p>
           <Link
             href={"/reset"}
@@ -132,3 +133,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default withAuthRedirect(LoginPage);

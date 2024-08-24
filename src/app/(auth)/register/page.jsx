@@ -12,8 +12,10 @@ import {
 } from "firebase/firestore";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import withAuthRedirect from "@/components/custom/withAuthRedirect";
+import Link from "next/link";
 
-export default function RegisterPage() {
+function RegisterPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -72,6 +74,8 @@ export default function RegisterPage() {
         email: user.email,
         profilePictureUrl,
         role: "member",
+        followers: 0, // Initialize followers to 0
+        following: 0, // Initialize following to 0
       });
 
       console.log("User registered and data saved:", user.uid);
@@ -133,7 +137,18 @@ export default function RegisterPage() {
         >
           Sign Up
         </button>
+        {/* <div className="mt-6 flex items-center justify-center text-sm">
+          <p className="text-white">By registring in, you agree to our</p>
+          <Link
+            href="/privacy-terms"
+            className="ml-1 text-[#FEC601] hover:text-[#fec701e5] transition-colors duration-150"
+          >
+            Privacy Policy.
+          </Link>
+        </div> */}
       </form>
     </div>
   );
 }
+
+export default withAuthRedirect(RegisterPage);

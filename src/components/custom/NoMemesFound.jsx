@@ -1,7 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Modal from "./Modal";
 
 export default function NoMemesFound() {
+  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.classList.add("no-scroll");
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove("no-scroll");
+  };
   return (
     <div className="flex flex-col items-center justify-center h-full pb-10">
       <Image
@@ -20,9 +37,9 @@ export default function NoMemesFound() {
         It looks like you haven&apos;t posted any memes.
       </p>
       <div>
-        <Link
-          href="/create"
+        <button
           className="mt-6 flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
+          onClick={openModal}
         >
           <Image
             src="/icons/plus.svg"
@@ -32,8 +49,10 @@ export default function NoMemesFound() {
             height={24}
           />
           <p className="ml-1">Post a Meme</p>
-        </Link>
+        </button>
       </div>
+
+      {isModalOpen && <Modal onClose={closeModal} />}
     </div>
   );
 }

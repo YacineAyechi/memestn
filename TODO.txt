@@ -1,0 +1,7 @@
+- search functionality + search page
+- Cookies
+
+- Privacy and terms when signin in and register [DONE]
+- home page (Pagination) [DONE]
+- add followings and followers [DONE]
+- share works make it like retweet or link in clipboard [DONE]
