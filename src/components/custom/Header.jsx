@@ -77,7 +77,7 @@ export default function Header() {
     <div className="flex flex-col md:flex-row items-center justify-between mx-4 md:mx-8 lg:mx-16 xl:mx-24 py-4 text-white">
       <div className="mb-4 md:mb-0">
         <Link href="/">
-          <Image src="/logo.png" alt="Logo" width={210} height={35} priority />
+          <Image src="/final.png" alt="Logo" width={210} height={35} priority />
         </Link>
       </div>
 

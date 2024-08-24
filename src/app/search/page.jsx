@@ -41,7 +41,7 @@ export default function SearchResults() {
   return (
     <div className="container mx-auto px-4 mt-8 text-white">
       <h1 className="text-3xl font-bold mb-4">
-        Search Results for "{searchQuery}"
+        Search Results for &quot;{searchQuery}&quot;
       </h1>
       {searchResults.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -61,7 +61,7 @@ export default function SearchResults() {
           ))}
         </div>
       ) : (
-        <p>No results found for "{searchQuery}".</p>
+        <p>No results found for &quot;{searchQuery}&quot;.</p>
       )}
     </div>
   );

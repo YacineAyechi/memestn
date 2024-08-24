@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
 
 const withAuthRedirect = (WrappedComponent) => {
-  return (props) => {
+  const Wrapper = (props) => {
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
 
@@ -20,6 +20,12 @@ const withAuthRedirect = (WrappedComponent) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  Wrapper.displayName = `withAuthRedirect(${
+    WrappedComponent.displayName || WrappedComponent.name || "Component"
+  })`;
+
+  return Wrapper;
 };
 
 export default withAuthRedirect;
