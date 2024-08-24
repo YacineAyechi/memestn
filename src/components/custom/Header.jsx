@@ -4,9 +4,10 @@ import { auth, db } from "@/lib/firebase";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import Modal from "./Modal";
+import SearchBar from "./SearchBar";
 
 export default function Header() {
   const [user, setUser] = useState(null);
@@ -80,24 +81,9 @@ export default function Header() {
           <Image src="/final.png" alt="Logo" width={210} height={35} priority />
         </Link>
       </div>
-      <Suspense>
-        <div className="w-full md:w-2/5 flex items-center justify-center mb-4 md:mb-0 rounded-xl bg-[#2D3748]">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={handleSearchChange}
-            className="w-full p-2 md:p-3 rounded-xl text-white bg-[#2D3748] placeholder-gray-400 focus:outline-none"
-          />
-          <button
-            type="button"
-            onClick={handleSearch}
-            className="p-2 md:p-3 rounded-xl bg-[#8FA6CB] text-white focus:outline-none"
-          >
-            Search
-          </button>
-        </div>
-      </Suspense>
+
+      <SearchBar />
+
       <div className="flex items-center space-x-4 md:space-x-6">
         {user ? (
           <>
