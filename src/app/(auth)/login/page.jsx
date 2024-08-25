@@ -67,6 +67,7 @@ function LoginPage() {
 
   return (
     <div className="flex justify-center items-center h-[76.9vh] px-4">
+      <title>DHA7AKNA | Sign In</title>
       <form
         onSubmit={handleSignIn}
         className="p-6 md:p-8 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
@@ -108,14 +109,16 @@ function LoginPage() {
           Sign In
         </button>
 
-        <div className="mt-6 flex items-center justify-center text-sm">
-          <p className="text-white">By logging in, you agree to our</p>
-          <Link
-            href="/privacy-terms"
-            className="ml-1 text-[#FEC601] hover:text-[#fec701e5] transition-colors duration-150"
-          >
-            Privacy Policy.
-          </Link>
+        <div className="mt-6 flex flex-col md:flex-row items-center justify-center text-sm">
+          <p className="text-white text-center">
+            By logging in, you agree to our
+            <Link
+              href="/privacy-terms"
+              className="ml-1 text-[#FEC601] hover:text-[#fec701e5] transition-colors duration-150"
+            >
+              Privacy Policy.
+            </Link>
+          </p>
         </div>
 
         <div className="mt-2 flex items-center justify-center text-sm">

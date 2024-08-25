@@ -14,27 +14,29 @@ export default function ResetPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[76.9vh]">
-      <h1 className="text-2xl mb-12 font-bold text-white">
+    <div className="flex flex-col items-center justify-center h-[76.9vh] px-4">
+      <h1 className="text-2xl mb-6 font-bold text-white text-center">
         Reset Your Password
       </h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="text-white">Enter your Email Address</label>
-          <br />
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
+      >
+        <div className="mb-4">
+          <label className="text-white block">Enter your Email Address</label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="mt-3 border-2 border-[#4A5568] bg-[#2D3748] text-white px-2 py-3 rounded-md w-[450px] focus:outline-none focus:border-[#FEC601]"
+            className="mt-2 border-2 border-[#4A5568] bg-[#2D3748] text-white px-3 py-2 rounded-md w-full focus:outline-none focus:border-[#FEC601]"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-[#FEC601] text-white p-3 rounded-md w-full hover:bg-[#fec701e5] transition-colors duration-150 mt-6"
+          className="bg-[#FEC601] text-white p-3 rounded-md w-full hover:bg-[#fec701e5] transition-colors duration-150 mt-4"
         >
           Reset Password
         </button>

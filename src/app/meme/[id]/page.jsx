@@ -114,35 +114,6 @@ export default function MemeDetailPage() {
     }
   };
 
-  // const handleCommentSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!auth.currentUser) {
-  //     router.push("/login"); // Redirect to login if not authenticated
-  //     return;
-  //   }
-
-  //   if (!comment.trim()) {
-  //     toast.error("Comment cannot be empty.");
-  //     return;
-  //   }
-
-  //   try {
-  //     const memeRef = doc(db, "memes", id);
-  //     await updateDoc(memeRef, {
-  //       comments: arrayUnion({
-  //         userId: auth.currentUser.uid,
-  //         username: auth.currentUser.displayName, // Make sure the user has a display name
-  //         text: comment,
-  //       }),
-  //     });
-  //     setComment("");
-  //     setNewComment(true);
-  //     setTimeout(() => setNewComment(false), 500); // Reset animation after 500ms
-  //   } catch (error) {
-  //     console.error("Error adding comment:", error.message);
-  //   }
-  // };
-
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
 
@@ -164,7 +135,6 @@ export default function MemeDetailPage() {
         const memeData = memeDoc.data();
         const newComment = {
           userId: auth.currentUser.uid,
-          // username: auth.currentUser.displayName,
           text: comment,
         };
 
@@ -187,101 +157,95 @@ export default function MemeDetailPage() {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-white bg-[#1a202c] min-h-screen">
       <Toaster />
       {meme ? (
-        <div>
-          <div className="max-w-5xl mx-auto mt-16 pt-10 pb-12 px-16 rounded-lg bg-gray-800">
-            <div className="mb-6">
-              <p className="text-xl mb-4 capitalize">{meme.caption}</p>
+        <div className="max-w-4xl mx-auto p-4 md:p-8">
+          <div className="bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
+            <p className="text-xl md:text-2xl font-bold mb-4 capitalize">
+              {meme.caption}
+            </p>
 
-              <Image
-                src={meme.imageUrl}
-                alt={meme.caption || "Meme"}
-                className="rounded-lg w-full mb-4"
-                width={800}
-                height={800}
-                priority
-              />
+            <Image
+              src={meme.imageUrl}
+              alt={meme.caption || "Meme"}
+              className="rounded-lg w-full mb-4"
+              width={800}
+              height={800}
+              priority
+            />
 
-              <div className="flex">
-                <div
-                  onClick={handleLike}
-                  className={`flex items-center p-3 rounded-xl ${
-                    comments.length < 10 ? "w-16" : "w-20"
-                  }  cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
-                    newLike ? "bounce" : ""
+            <div className="flex flex-wrap justify-start space-x-4 mb-4">
+              <div
+                onClick={handleLike}
+                className={`flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
+                  newLike ? "bounce" : ""
+                }`}
+              >
+                <Image
+                  src={
+                    userHasLiked
+                      ? "/icons/heart-filled.svg"
+                      : "/icons/heart.svg"
+                  }
+                  alt="Like Icon"
+                  width={24}
+                  height={24}
+                />
+                <p
+                  className={`font-bold ml-2 text-white ${
+                    newLike ? "fade-in" : ""
                   }`}
                 >
-                  <Image
-                    src={
-                      userHasLiked
-                        ? "/icons/heart-filled.svg"
-                        : "/icons/heart.svg"
-                    }
-                    alt="Like Icon"
-                    width={24}
-                    height={24}
-                  />
-                  <p
-                    className={`font-bold ml-2 text-white ${
-                      newLike ? "fade-in" : ""
-                    }`}
-                  >
-                    {likes.length}
-                  </p>
-                </div>
+                  {likes.length}
+                </p>
+              </div>
 
-                <div
-                  className={`flex items-center p-3 rounded-xl ${
-                    comments.length < 10 ? "w-16" : "w-20"
-                  } ${
-                    newComment ? "fade-in" : "" ? "bounce" : ""
-                  } ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
+              <div
+                className={`flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
+                  newComment ? "fade-in" : ""
+                }`}
+              >
+                <Image
+                  src="/icons/comment.svg"
+                  alt="Comment Icon"
+                  priority
+                  width={24}
+                  height={24}
+                />
+                <p
+                  className={`font-bold ml-2 text-white ${
+                    newComment ? "fade-in" : ""
+                  }`}
                 >
-                  <Image
-                    src="/icons/comment.svg"
-                    alt="Comment Icon"
-                    priority
-                    width={24}
-                    height={24}
-                  />
-                  <p
-                    className={`font-bold ml-2 text-white ${
-                      newComment ? "fade-in" : ""
-                    }`}
-                  >
-                    {comments.length}
-                  </p>
-                </div>
+                  {comments.length}
+                </p>
+              </div>
 
-                <div
-                  onClick={handleReMeme}
-                  className={`flex items-center p-3 rounded-xl ${
-                    newReMeme ? "bounce" : ""
-                  } w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
-                >
-                  <Image
-                    src="/icons/share.svg"
-                    alt="Share Icon"
-                    priority
-                    width={24}
-                    height={24}
-                  />
-                </div>
+              <div
+                onClick={handleReMeme}
+                className={`flex items-center p-3 rounded-xl cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out ${
+                  newReMeme ? "bounce" : ""
+                }`}
+              >
+                <Image
+                  src="/icons/share.svg"
+                  alt="Share Icon"
+                  priority
+                  width={24}
+                  height={24}
+                />
               </div>
             </div>
 
             <div className="mb-6">
               <h2 className="text-2xl font-bold mb-4">Comments</h2>
               {comments.length > 0 ? (
-                <ul>
+                <ul className="space-y-2">
                   {comments.map((c, index) => (
-                    <li key={index} className="mb-2">
-                      <div className="flex items-center">
-                        <UserProfileLink userId={c.userId} />
-                        <p>{c.text}</p>
-                      </div>
+                    <li key={index} className="flex items-center">
+                      <UserProfileLink userId={c.userId} />
+                      <p>{c.text}</p>
                     </li>
                   ))}
                 </ul>
@@ -299,9 +263,9 @@ export default function MemeDetailPage() {
                 />
                 <button
                   type="submit"
-                  className="mt-4 p-3 rounded-lg bg-[#FEC601] text-white font-semibold hover:bg-[#FFC107] transition-all duration-300 ease-in-out"
+                  className="mt-2 px-4 py-2 bg-[#FEC601] rounded-lg font-semibold text-white hover:bg-[#FFC107] transition-all duration-300 ease-in-out"
                 >
-                  Post Comment
+                  Comment
                 </button>
               </form>
             ) : (
@@ -317,40 +281,35 @@ export default function MemeDetailPage() {
               </p>
             )}
           </div>
+
+          <Link href="/" className="block mt-3 text-[#4A90E2] hover:underline">
+            &larr; Back to homepage
+          </Link>
         </div>
       ) : (
-        <div className="flex items-center justify-center m-auto h-[79.5vh]">
-          <Loader />
-        </div>
+        <Loader />
       )}
     </div>
   );
 }
 
-// Fetch and display username and profile picture for the given userId
-function UserProfileLink({ userId }) {
-  const [userInfo, setUserInfo] = useState({
-    username: "",
-    profilePictureUrl: "",
-    role: "",
-  });
+// Helper Component to Display User's Profile Link
+const UserProfileLink = ({ userId }) => {
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const userRef = doc(db, "users", userId);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          const { username, profilePictureUrl, role } = userSnap.data();
-          setUserInfo({ username, profilePictureUrl, role });
-        }
-      } catch (error) {
-        console.error("Error fetching user info:", error.message);
+    const fetchUser = async () => {
+      const userRef = doc(db, "users", userId);
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        setUser(userDoc.data());
       }
     };
 
-    fetchUserInfo();
+    fetchUser();
   }, [userId]);
+
+  if (!user) return null;
 
   return (
     <div className="flex items-center space-x-2 bg-gray-800 rounded-md p-1">
@@ -362,10 +321,10 @@ function UserProfileLink({ userId }) {
         className="rounded-full"
       /> */}
 
-      {userInfo.username && (
+      {user.username && (
         <Image
-          src={userInfo.profilePictureUrl}
-          alt={userInfo.username}
+          src={user.profilePictureUrl}
+          alt={user.username}
           width={30}
           height={30}
           className="rounded-full"
@@ -375,11 +334,11 @@ function UserProfileLink({ userId }) {
       <div className="flex">
         <Link href={`/profile/${userId}`} passHref>
           <span className="font-bold hover:underline cursor-pointer">
-            {userInfo.username}
+            {user.username}
           </span>
         </Link>
 
-        {userInfo.role === "verified" ? (
+        {user.role === "verified" ? (
           <Image
             src="/icons/verified.svg"
             alt="Verified Icon"
@@ -388,7 +347,7 @@ function UserProfileLink({ userId }) {
             width={18}
             height={18}
           />
-        ) : userInfo.role === "frezaa" ? (
+        ) : user.role === "frezaa" ? (
           <>
             <Image
               src="/icons/moderator.svg"
@@ -402,8 +361,8 @@ function UserProfileLink({ userId }) {
           </>
         ) : null}
 
-        <span className="font-bold ml-1 mr-1">:</span>
+        <span className="font-bold ml-1">:</span>
       </div>
     </div>
   );
-}
+};

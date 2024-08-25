@@ -17,9 +17,11 @@ export default function SearchResults() {
       if (!searchQuery) return;
 
       try {
+        // Query for partial matches
         const memesQuery = query(
           collection(db, "memes"),
-          where("caption", "==", searchQuery) // Query remains the same, assuming captions are stored in lowercase
+          where("captionLower", ">=", searchQuery),
+          where("captionLower", "<=", searchQuery + "\uf8ff") // Adding \uf8ff for partial match
         );
 
         const querySnapshot = await getDocs(memesQuery);

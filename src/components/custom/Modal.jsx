@@ -54,7 +54,8 @@ export default function Modal({ onClose }) {
           // Save meme data to Firestore
           await addDoc(collection(db, "memes"), {
             uid: auth.currentUser.uid,
-            caption: caption.toLowerCase(),
+            caption: caption,
+            captionLower: caption.toLowerCase(), // Store lowercase version for search
             imageUrl: downloadURL,
             createdAt: serverTimestamp(),
           });

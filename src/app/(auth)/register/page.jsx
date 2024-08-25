@@ -90,6 +90,8 @@ function RegisterPage() {
 
   return (
     <div className="flex justify-center items-center h-[76.9vh] px-4">
+      <title>DHA7AKNA | Sign Up</title>
+
       <form
         onSubmit={handleSignUp}
         className="p-6 md:p-8 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"

@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="p-6 bg-[#1A202C]">
+    <footer className="p-6">
       <div className="flex items-center justify-center mb-4">
         <Link
           href=""
@@ -27,7 +27,7 @@ export default function Footer() {
           © 2024{" "}
           <Link
             href="/"
-            className="text-[#E2E8F0] hover:text-[#4A90E2] transition-colors duration-300"
+            className="font-bold text-[#E2E8F0] hover:text-[#4A90E2] transition-colors duration-300"
           >
             DHA7AKNA
           </Link>

@@ -232,7 +232,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-16 bg-[#1A202C] p-4">
+    <div className="flex flex-col items-center justify-center bg-[#1a202c] px-4 pb-4">
+      <title>DHA7AKNA | Home </title>
       <Toaster />
       <div className="w-full max-w-3xl">
         {memes.length > 0 ? (
@@ -295,7 +296,7 @@ export default function Home() {
               </div>
 
               <Link href={`/meme/${meme.id}`} passHref>
-                <div className="my-6 w-full h-[700px]">
+                <div className="my-6 w-full h-[450px]">
                   <Image
                     src={meme.imageUrl || "/meme-placeholder.jpg"}
                     alt={meme.caption || "Meme Image"}
