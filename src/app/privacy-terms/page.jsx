@@ -1,6 +1,7 @@
 export default function PrivacyTerms() {
   return (
     <div className="px-20 py-14 text-white rounded-lg">
+      <title>DHA7AKNA | Privacy Policy</title>
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
       <p className="mb-4">
         Your privacy is important to us. We are committed to protecting the

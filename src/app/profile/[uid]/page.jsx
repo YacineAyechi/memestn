@@ -21,6 +21,8 @@ import ModalEdit from "./ModalEdit";
 import Loader from "@/components/custom/Loader";
 import Likes from "@/components/custom/Likes";
 import Reposts from "@/components/custom/Reposts";
+import OgMemes from "@/components/custom/OgMemes";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function UserProfilePage({ params }) {
   const { uid } = params;
@@ -84,7 +86,7 @@ export default function UserProfilePage({ params }) {
     try {
       const currentUser = auth.currentUser;
       if (!currentUser) {
-        console.error("User not authenticated.");
+        toast.error("You need to login to follow users.");
         return;
       }
 
@@ -141,8 +143,10 @@ export default function UserProfilePage({ params }) {
     switch (selectedTab) {
       case "memes":
         return <Memes userId={uid} />;
-      case "likes":
-        return <Likes userId={uid} />;
+      // case "likes":
+      //   return <Likes userId={uid} />;
+      case "ogmemes":
+        return <OgMemes />;
       case "reposts":
         return <Reposts userId={uid} />;
       default:
@@ -152,6 +156,9 @@ export default function UserProfilePage({ params }) {
 
   return (
     <div className="text-white mb-16">
+      <title>DHA7AKNA</title>
+      <Toaster />
+
       <div className="flex items-center justify-center mx-auto text-center mt-20 mb-12">
         <div>
           <Image
@@ -252,17 +259,6 @@ export default function UserProfilePage({ params }) {
           Memes
         </button>
 
-        {/* <button
-          className={`font-bold p-2 mx-2 ${
-            selectedTab === "likes"
-              ? "border-b-2 border-[#8FA6CB]"
-              : "border-b-2 border-transparent"
-          }`}
-          onClick={() => setSelectedTab("likes")}
-        >
-          Likes
-        </button> */}
-
         <button
           className={`font-bold p-2 mx-2 ${
             selectedTab === "reposts"
@@ -271,7 +267,18 @@ export default function UserProfilePage({ params }) {
           }`}
           onClick={() => setSelectedTab("reposts")}
         >
-          Rememes
+          ReMemes
+        </button>
+
+        <button
+          className={`font-bold p-2 mx-2 ${
+            selectedTab === "ogmemes"
+              ? "border-b-2 border-[#8FA6CB]"
+              : "border-b-2 border-transparent"
+          }`}
+          onClick={() => setSelectedTab("ogmemes")}
+        >
+          Original Memes
         </button>
       </div>
 

@@ -50,19 +50,10 @@ export default function Reposts({ userId }) {
   }, [userId]);
 
   return (
-    // <div className="flex flex-col items-center justify-center mt-16">
-    //   <div className="w-full max-w-3xl">
-    //     {reposts.length > 0 ? (
-    //       reposts.map((meme) => <MemeCard key={meme.id} meme={meme} />)
-    //     ) : (
-    //       <p className="text-white">No reposts found.</p>
-    //     )}
-    //   </div>
-    // </div>
     <div>
       {reposts.length > 0 ? (
         <div className="md:mx-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
             {reposts.map((meme) => (
               <MemeCard key={meme.id} meme={meme} />
             ))}

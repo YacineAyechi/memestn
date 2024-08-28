@@ -10,12 +10,15 @@ import {
   arrayUnion,
   arrayRemove,
   onSnapshot,
+  deleteDoc,
 } from "firebase/firestore";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Loader from "@/components/custom/Loader";
 import toast, { Toaster } from "react-hot-toast";
+import MemeEditModal from "@/components/custom/MemeEditModal";
+import { formatDistanceToNow } from "date-fns";
 
 export default function MemeDetailPage() {
   const { id } = useParams();
@@ -30,12 +33,24 @@ export default function MemeDetailPage() {
   const [newLike, setNewLike] = useState(false);
   const [newReMeme, setNewReMeme] = useState(false); // New state for ReMeme animation
   const [userLoggedIn, setUserLoggedIn] = useState(false);
+  const [isOwner, setIsOwner] = useState(false); // New state to check if the user is the owner
+  const [isMemeEditModalOpen, setIsMemeEditModalOpen] = useState(false);
+  const [username, setUsername] = useState(""); // New state to store the username
+
+  const openMemeEditModal = () => {
+    setIsMemeEditModalOpen(true);
+    document.body.classList.add("no-scroll");
+  };
+
+  const closeMemeEditModal = () => {
+    setIsMemeEditModalOpen(false);
+    document.body.classList.remove("no-scroll");
+  };
 
   useEffect(() => {
     const memeRef = doc(db, "memes", id);
 
-    // Set up a real-time listener for the meme document
-    const unsubscribe = onSnapshot(memeRef, (docSnap) => {
+    const unsubscribe = onSnapshot(memeRef, async (docSnap) => {
       if (docSnap.exists()) {
         const memeData = docSnap.data();
         setMeme(memeData);
@@ -43,16 +58,24 @@ export default function MemeDetailPage() {
         setComments(memeData.comments || []);
         setUserHasReposted(
           memeData.reposts?.includes(auth.currentUser?.uid) || false
-        ); // Check repost status
-        setNewComment(false);
-        setNewLike(false);
-        setNewReMeme(false); // Reset ReMeme animation
+        );
+        setIsOwner(memeData.uid === auth.currentUser?.uid);
+
+        // Fetch the username
+        const userRef = doc(db, "users", memeData.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          console.log("User data fetched successfully:", userDoc.data());
+          setUsername(userDoc.data().name);
+        } else {
+          console.log("User document does not exist.");
+        }
       } else {
-        router.push("/404"); // Redirect to a 404 page if meme is not found
+        router.push("/404");
       }
     });
 
-    return () => unsubscribe(); // Cleanup the listener on component unmount
+    return () => unsubscribe();
   }, [id, router]);
 
   useEffect(() => {
@@ -156,13 +179,123 @@ export default function MemeDetailPage() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!auth.currentUser || !isOwner) {
+      toast.error("You are not authorized to delete this meme.");
+      return;
+    }
+
+    try {
+      const memeRef = doc(db, "memes", id);
+      await deleteDoc(memeRef);
+      toast.success("Meme deleted successfully!");
+      router.push("/"); // Redirect to homepage after deletion
+    } catch (error) {
+      console.error("Error deleting meme:", error.message);
+      toast.error("An error occurred while deleting the meme.");
+    }
+  };
+
+  const handleReport = async () => {
+    if (!auth.currentUser) {
+      toast.error("You Must Be Logged In to Report!");
+      return;
+    }
+
+    try {
+      const memeRef = doc(db, "memes", id);
+      await updateDoc(memeRef, {
+        reports: arrayUnion(auth.currentUser.uid),
+      });
+      toast.success("Meme reported successfully.");
+    } catch (error) {
+      console.error("Error reporting meme:", error.message);
+      toast.error("An error occurred while reporting the meme.");
+    }
+  };
+
   return (
     <div className="text-white bg-[#1a202c] min-h-screen">
+      <title>DHA7AKNA</title>
       <Toaster />
       {meme ? (
         <div className="max-w-4xl mx-auto p-4 md:p-8">
           <div className="bg-gray-800 rounded-lg shadow-lg p-4 md:p-6">
-            <p className="text-xl md:text-2xl font-bold mb-4 capitalize">
+            <div className="flex">
+              <div className="flex items-center justify-center">
+                <UserProfileLink sizeClass="w-10 h-10" userId={meme.uid} />
+
+                <div>
+                  <p className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></p>
+                </div>
+
+                <div>
+                  <p className="text-sm text-[#A0AEC0]">
+                    {meme.createdAt
+                      ? formatDistanceToNow(meme.createdAt.toDate(), {
+                          addSuffix: true,
+                        })
+                      : "Unknown time"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="dropdown dropdown-left dropdown-bottom mb-6 ml-auto cursor-pointer">
+                <Image
+                  src={"/icons/dots.svg"}
+                  alt="Like Icon"
+                  className="mt-2"
+                  width={24}
+                  height={24}
+                  tabIndex={0}
+                  role="button"
+                />
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-base-100 rounded-box z-[1] w-36 p-2 shadow"
+                >
+                  {isOwner && (
+                    <>
+                      <li onClick={openMemeEditModal}>
+                        <a>
+                          <Image
+                            src="/icons/pencil.svg"
+                            alt="Edit Icon"
+                            width={18}
+                            height={18}
+                          />
+                          Edit
+                        </a>
+                      </li>
+                      <li onClick={handleDelete}>
+                        <a>
+                          <Image
+                            src="/icons/delete.svg"
+                            alt="Edit Icon"
+                            width={18}
+                            height={18}
+                          />
+                          Delete
+                        </a>
+                      </li>
+                    </>
+                  )}
+                  <li onClick={handleReport}>
+                    <a className="text-[#FF0000]">
+                      <Image
+                        src="/icons/report.svg"
+                        alt="Edit Icon"
+                        width={18}
+                        height={18}
+                      />
+                      Report
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="mt-2 text-xl md:text-2xl font-bold mb-6">
               {meme.caption}
             </p>
 
@@ -244,8 +377,9 @@ export default function MemeDetailPage() {
                 <ul className="space-y-2">
                   {comments.map((c, index) => (
                     <li key={index} className="flex items-center">
-                      <UserProfileLink userId={c.userId} />
-                      <p>{c.text}</p>
+                      <UserProfileLink sizeClass="w-8 h-8" userId={c.userId} />
+                      <span className="font-bold mr-1">:</span>
+                      <p className="">{c.text}</p>
                     </li>
                   ))}
                 </ul>
@@ -285,16 +419,25 @@ export default function MemeDetailPage() {
           <Link href="/" className="block mt-3 text-[#4A90E2] hover:underline">
             &larr; Back to homepage
           </Link>
+          {isMemeEditModalOpen && (
+            <MemeEditModal
+              memeId={id}
+              currentCaption={meme.caption}
+              onClose={closeMemeEditModal}
+            />
+          )}
         </div>
       ) : (
-        <Loader />
+        <div className="text-white flex items-center justify-center  h-[72.5vh]">
+          <Loader />
+        </div>
       )}
     </div>
   );
 }
 
 // Helper Component to Display User's Profile Link
-const UserProfileLink = ({ userId }) => {
+const UserProfileLink = ({ userId, sizeClass }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -312,57 +455,51 @@ const UserProfileLink = ({ userId }) => {
   if (!user) return null;
 
   return (
-    <div className="flex items-center space-x-2 bg-gray-800 rounded-md p-1">
-      {/* <Image
-        src={userInfo.profilePictureUrl}
-        alt={userInfo.username}
-        width={30}
-        height={30}
-        className="rounded-full"
-      /> */}
+    <div>
+      <Link
+        className="flex items-center space-x-2 bg-gray-800 rounded-md p-1"
+        href={`/profile/${userId}`}
+        passHref
+      >
+        {user.username && (
+          <Image
+            src={user.profilePictureUrl}
+            alt={user.username}
+            width={30}
+            height={30}
+            className={`rounded-full object-cover ${sizeClass}`}
+          />
+        )}
 
-      {user.username && (
-        <Image
-          src={user.profilePictureUrl}
-          alt={user.username}
-          width={30}
-          height={30}
-          className="rounded-full"
-        />
-      )}
-
-      <div className="flex">
-        <Link href={`/profile/${userId}`} passHref>
+        <div className="flex">
           <span className="font-bold hover:underline cursor-pointer">
             {user.username}
           </span>
-        </Link>
 
-        {user.role === "verified" ? (
-          <Image
-            src="/icons/verified.svg"
-            alt="Verified Icon"
-            className="ml-1"
-            priority
-            width={18}
-            height={18}
-          />
-        ) : user.role === "frezaa" ? (
-          <>
+          {user.role === "verified" ? (
             <Image
-              src="/icons/moderator.svg"
-              alt="Freza Icon"
+              src="/icons/verified.svg"
+              alt="Verified Icon"
               className="ml-1"
               priority
               width={18}
               height={18}
             />
-            <span className="font-bold">🍓</span>
-          </>
-        ) : null}
-
-        <span className="font-bold ml-1">:</span>
-      </div>
+          ) : user.role === "frezaa" ? (
+            <>
+              <Image
+                src="/icons/moderator.svg"
+                alt="Freza Icon"
+                className="ml-1"
+                priority
+                width={18}
+                height={18}
+              />
+              <span className="font-bold">🍓</span>
+            </>
+          ) : null}
+        </div>
+      </Link>
     </div>
   );
 };

@@ -15,6 +15,7 @@ export default function ResetPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-[76.9vh] px-4">
+      <title>DHA7AKNA | Reset Password</title>
       <h1 className="text-2xl mb-6 font-bold text-white text-center">
         Reset Your Password
       </h1>

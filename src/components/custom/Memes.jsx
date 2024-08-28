@@ -46,7 +46,7 @@ export default function Memes({ userId }) {
 
   return (
     <div className="mt-8 md:mx-20">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mx-3">
         {memes.map((meme) => (
           <MemeCard key={meme.id} meme={meme} />
         ))}

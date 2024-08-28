@@ -246,9 +246,9 @@ export default function Home() {
                   passHref
                 >
                   <Image
-                    src={meme.user.profilePictureUrl || "/avatar.jpg"}
-                    alt={meme.user.username || "User"}
-                    className="rounded-full"
+                    src={meme.user.profilePictureUrl}
+                    alt={meme.user.username}
+                    className="rounded-full object-cover w-10 h-10"
                     width={48}
                     height={48}
                     priority
@@ -365,20 +365,9 @@ export default function Home() {
             </div>
           ))
         ) : (
-          <div className="text-white h-[55.5vh]">
-            <NoMemesFound />
+          <div className="text-white flex items-center justify-center  h-[72.5vh]">
+            <Loader />
           </div>
-          // <>
-          //   {user ? (
-          //     <div className="text-white h-[55.5vh]">
-          //       <NoMemesFound />
-          //     </div>
-          //   ) : (
-          //     <div className="text-white h-[55.5vh]">
-          //       <NoMemesFoundLogIn />
-          //     </div>
-          //   )}
-          // </>
         )}
 
         <div ref={loaderRef} className="text-center p-4">
