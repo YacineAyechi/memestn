@@ -207,7 +207,7 @@ export default function Home() {
   const handleReposts = async (memeId) => {
     if (!auth.currentUser) {
       toast.error("You Must Be Logged In to ReMeme!");
-      // router.push("/login");
+
       return;
     }
 
@@ -235,6 +235,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center bg-[#1a202c] px-4 pb-4">
       <title>DHA7AKNA | Home </title>
       <Toaster />
+
       <div className="w-full max-w-3xl">
         {memes.length > 0 ? (
           memes.map((meme) => (
@@ -254,7 +255,7 @@ export default function Home() {
                     priority
                   />
                   <p className="capitalize font-bold ml-2 text-white hover:text-[#8FA6CB] transition-all duration-200 ease-in-out">
-                    {meme.user.username || "Unknown"}
+                    {meme.user.username}
                   </p>
                   {meme.user.role === "verified" ? (
                     <Image
@@ -265,18 +266,6 @@ export default function Home() {
                       width={18}
                       height={18}
                     />
-                  ) : meme.user.role === "frezaa" ? (
-                    <>
-                      <Image
-                        src="/icons/moderator.svg"
-                        alt="Freza Icon"
-                        className="ml-1"
-                        priority
-                        width={18}
-                        height={18}
-                      />
-                      <span className="font-bold">🍓</span>
-                    </>
                   ) : null}
                 </Link>
 
@@ -290,7 +279,7 @@ export default function Home() {
                       ? formatDistanceToNow(meme.createdAt.toDate(), {
                           addSuffix: true,
                         })
-                      : "Unknown time"}
+                      : null}
                   </p>
                 </div>
               </div>

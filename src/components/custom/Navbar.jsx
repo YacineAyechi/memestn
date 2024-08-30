@@ -14,7 +14,6 @@ export default function Navbar() {
   const [username, setUsername] = useState(null);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -68,14 +67,14 @@ export default function Navbar() {
       <div className="flex-1">
         <Link href="/" className="">
           <Image
-            src="/D.png" // Mobile logo
+            src="/D.png"
             alt="Logo"
-            width={80} // Adjust size for mobile
+            width={80}
             height={20}
             className="block md:hidden"
           />
           <Image
-            src="/final.png" // Desktop logo
+            src="/final.png"
             alt="Logo"
             width={210}
             height={35}
@@ -97,10 +96,10 @@ export default function Navbar() {
                   <Image
                     src={profilePictureUrl}
                     alt="Profile Picture"
-                    className="rounded-full object-cover w-8 h-8 md:w-10 md:h-10" // Smaller size for mobile, larger size for larger screens
+                    className="rounded-full object-cover w-8 h-8 md:w-10 md:h-10"
                     priority
-                    width={32} // Adjust width for mobile
-                    height={32} // Adjust height for mobile
+                    width={32}
+                    height={32}
                   />
                 )}
               </div>
@@ -125,9 +124,7 @@ export default function Navbar() {
               <li>
                 <button onClick={openModal}>Post a Meme</button>
               </li>
-              {/* <li>
-                <Link href="/settings">Settings</Link>
-              </li> */}
+
               <li>
                 <Link href="/" onClick={handleSignOut}>
                   Logout
@@ -143,7 +140,7 @@ export default function Navbar() {
             >
               <span className="hidden md:block text-white">Sign In</span>
               <Image
-                src="/icons/login.svg" // Icon for Sign In
+                src="/icons/login.svg"
                 alt="Sign In Icon"
                 className="block md:hidden"
                 width={24}
@@ -156,7 +153,7 @@ export default function Navbar() {
             >
               <span className="hidden md:block text-white">Sign Up</span>
               <Image
-                src="/icons/signup.svg" // Icon for Sign Up
+                src="/icons/signup.svg"
                 alt="Sign Up Icon"
                 className="block md:hidden"
                 width={24}

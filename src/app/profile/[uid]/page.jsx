@@ -143,8 +143,7 @@ export default function UserProfilePage({ params }) {
     switch (selectedTab) {
       case "memes":
         return <Memes userId={uid} />;
-      // case "likes":
-      //   return <Likes userId={uid} />;
+
       case "ogmemes":
         return <OgMemes />;
       case "reposts":
@@ -278,7 +277,7 @@ export default function UserProfilePage({ params }) {
           }`}
           onClick={() => setSelectedTab("ogmemes")}
         >
-          Original Memes
+          Originals
         </button>
       </div>
 
