@@ -71,7 +71,12 @@ export default function UserProfilePage({ params }) {
     const fetchMemesCount = async () => {
       try {
         const memesRef = collection(db, "memes");
-        const q = query(memesRef, where("uid", "==", uid));
+        const q = query(
+          memesRef,
+          where("uid", "==", uid),
+          where("type", "==", "Meme")
+        );
+
         const querySnapshot = await getDocs(q);
         setMemesCount(querySnapshot.size);
       } catch (error) {
@@ -145,7 +150,7 @@ export default function UserProfilePage({ params }) {
         return <Memes userId={uid} />;
 
       case "ogmemes":
-        return <OgMemes />;
+        return <OgMemes userId={uid} />;
       case "reposts":
         return <Reposts userId={uid} />;
       default:

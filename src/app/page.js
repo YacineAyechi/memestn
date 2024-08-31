@@ -232,135 +232,147 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center bg-[#1a202c] px-4 pb-4">
-      <title>DHA7AKNA | Home </title>
-      <Toaster />
+    <div>
+      <div className="flex flex-col items-center justify-center bg-[#1a202c] px-4 pb-4">
+        <title>DHA7AKNA | Home </title>
+        <Toaster />
 
-      <div className="w-full max-w-3xl">
-        {memes.length > 0 ? (
-          memes.map((meme) => (
-            <div key={meme.id} className="mb-6">
-              <div className="flex items-center mt-8 mb-6">
-                <Link
-                  href={`/profile/${meme.user.uid}`}
-                  className="flex items-center"
-                  passHref
-                >
-                  <Image
-                    src={meme.user.profilePictureUrl}
-                    alt={meme.user.username}
-                    className="rounded-full object-cover w-10 h-10"
-                    width={48}
-                    height={48}
-                    priority
-                  />
-                  <p className="capitalize font-bold ml-2 text-white hover:text-[#8FA6CB] transition-all duration-200 ease-in-out">
-                    {meme.user.username}
-                  </p>
-                  {meme.user.role === "verified" ? (
-                    <Image
-                      src="/icons/verified.svg"
-                      alt="Verified Icon"
-                      className="ml-1"
-                      priority
-                      width={18}
-                      height={18}
-                    />
-                  ) : null}
-                </Link>
-
-                <div>
-                  <p className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></p>
-                </div>
-
-                <div>
-                  <p className="text-sm text-[#A0AEC0]">
-                    {meme.createdAt
-                      ? formatDistanceToNow(meme.createdAt.toDate(), {
-                          addSuffix: true,
-                        })
-                      : null}
-                  </p>
-                </div>
-              </div>
-
-              <Link href={`/meme/${meme.id}`} passHref>
-                <div className="my-6 w-full h-[450px]">
-                  <Image
-                    src={meme.imageUrl || "/meme-placeholder.jpg"}
-                    alt={meme.caption || "Meme Image"}
-                    className="rounded-3xl object-cover w-full h-full"
-                    width={900}
-                    height={900}
-                    priority
-                  />
-                </div>
-              </Link>
-
-              <div className="flex mt-2">
-                <div
-                  onClick={() => handleLike(meme.id)}
-                  className={`flex items-center p-3 rounded-xl ${
-                    meme.likes?.length < 10 ? "w-16" : "w-20"
-                  }  cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
-                >
-                  <Image
-                    src={
-                      userLikes.has(meme.id)
-                        ? "/icons/heart-filled.svg"
-                        : "/icons/heart.svg"
-                    }
-                    alt="Like Icon"
-                    width={24}
-                    height={24}
-                  />
-                  <p className="font-bold ml-2 text-white">
-                    {meme.likes?.length || 0}
-                  </p>
-                </div>
-
-                <Link href={`/meme/${meme.id}`}>
-                  <div
-                    className={`flex items-center p-3 rounded-xl ${
-                      meme.comments?.length < 10 ? "w-16" : "w-20"
-                    } ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
+        <div className="w-full max-w-3xl">
+          {/* Left Ad Placeholder */}
+          <div className="w-full bg-gray-200 rounded-md mb-6 p-4">
+            <p className="text-gray-600">Your Ad Here</p>
+          </div>
+          {memes.length > 0 ? (
+            memes.map((meme) => (
+              <div key={meme.id} className="mb-6">
+                <div className="flex items-center mt-8 mb-6">
+                  <Link
+                    href={`/profile/${meme.user.uid}`}
+                    className="flex items-center"
+                    passHref
                   >
                     <Image
-                      src="/icons/comment.svg"
-                      alt="Comment Icon"
+                      src={meme.user.profilePictureUrl}
+                      alt={meme.user.username}
+                      className="rounded-full object-cover w-10 h-10"
+                      width={48}
+                      height={48}
                       priority
-                      width={24}
-                      height={24}
                     />
-                    <p className={`font-bold ml-2 text-white `}>
-                      {meme.comments?.length || 0}
+                    <p className="capitalize font-bold ml-2 text-white hover:text-[#8FA6CB] transition-all duration-200 ease-in-out">
+                      {meme.user.username}
                     </p>
+                    {meme.user.role === "verified" ? (
+                      <Image
+                        src="/icons/verified.svg"
+                        alt="Verified Icon"
+                        className="ml-1"
+                        priority
+                        width={18}
+                        height={18}
+                      />
+                    ) : null}
+                  </Link>
+
+                  <div>
+                    <p className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></p>
+                  </div>
+
+                  <div>
+                    <p className="text-sm text-[#A0AEC0]">
+                      {meme.createdAt
+                        ? formatDistanceToNow(meme.createdAt.toDate(), {
+                            addSuffix: true,
+                          })
+                        : null}
+                    </p>
+                  </div>
+
+                  {meme.type === "Original" ? (
+                    <div className="badge badge-outline ml-2 mt-0.5">
+                      Original
+                    </div>
+                  ) : null}
+                </div>
+
+                <Link href={`/meme/${meme.id}`} passHref>
+                  <div className="my-6 w-full h-[450px]">
+                    <Image
+                      src={meme.imageUrl || "/meme-placeholder.jpg"}
+                      alt={meme.caption || "Meme Image"}
+                      className="rounded-3xl object-cover w-full h-full"
+                      width={900}
+                      height={900}
+                      priority
+                    />
                   </div>
                 </Link>
 
-                <div
-                  onClick={() => handleReposts(meme.id)}
-                  className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
-                >
-                  <Image
-                    src="/icons/share.svg"
-                    alt="Share Icon"
-                    width={24}
-                    height={24}
-                    priority
-                  />
+                <div className="flex mt-2">
+                  <div
+                    onClick={() => handleLike(meme.id)}
+                    className={`flex items-center p-3 rounded-xl ${
+                      meme.likes?.length < 10 ? "w-16" : "w-20"
+                    }  cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
+                  >
+                    <Image
+                      src={
+                        userLikes.has(meme.id)
+                          ? "/icons/heart-filled.svg"
+                          : "/icons/heart.svg"
+                      }
+                      alt="Like Icon"
+                      width={24}
+                      height={24}
+                    />
+                    <p className="font-bold ml-2 text-white">
+                      {meme.likes?.length || 0}
+                    </p>
+                  </div>
+
+                  <Link href={`/meme/${meme.id}`}>
+                    <div
+                      className={`flex items-center p-3 rounded-xl ${
+                        meme.comments?.length < 10 ? "w-16" : "w-20"
+                      } ml-5 mr-5 cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out`}
+                    >
+                      <Image
+                        src="/icons/comment.svg"
+                        alt="Comment Icon"
+                        priority
+                        width={24}
+                        height={24}
+                      />
+                      <p className={`font-bold ml-2 text-white `}>
+                        {meme.comments?.length || 0}
+                      </p>
+                    </div>
+                  </Link>
+
+                  <div
+                    onClick={() => handleReposts(meme.id)}
+                    className="flex items-center p-3 rounded-xl w-14 justify-center cursor-pointer bg-[#2D3748] hover:bg-[#8FA6CB] transition-all duration-300 ease-in-out"
+                  >
+                    <Image
+                      src="/icons/share.svg"
+                      alt="Share Icon"
+                      width={24}
+                      height={24}
+                      priority
+                    />
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="text-white flex items-center justify-center  h-[72.5vh]">
+              <Loader />
             </div>
-          ))
-        ) : (
-          <div className="text-white flex items-center justify-center  h-[72.5vh]">
-            <Loader />
-          </div>
-        )}
+          )}
 
-        <div ref={loaderRef} className="text-center p-4">
-          {loading && <Loader />}
+          <div ref={loaderRef} className="text-center p-4">
+            {loading && <Loader />}
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,11 @@ export default function Memes({ userId }) {
     const fetchMemes = async () => {
       try {
         const memesRef = collection(db, "memes");
-        const q = query(memesRef, where("uid", "==", userId));
+        const q = query(
+          memesRef,
+          where("uid", "==", userId),
+          where("type", "==", "Meme")
+        );
         const querySnapshot = await getDocs(q);
         const memesData = querySnapshot.docs.map((doc) => ({
           id: doc.id,

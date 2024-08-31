@@ -62,8 +62,8 @@ export default function Modal({ onClose }) {
       return;
     }
 
-    if (tags.length < 2) {
-      toast.error("You must add at least 2 tags.");
+    if (tags.length < 1) {
+      toast.error("You must add at least 1 tag.");
       return;
     }
 
@@ -89,6 +89,8 @@ export default function Modal({ onClose }) {
           // Get the download URL after upload is complete
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
 
+          const isApproved = selectedType === "Meme" ? true : false;
+
           // Save meme data to Firestore
           await addDoc(collection(db, "memes"), {
             uid: auth.currentUser.uid,
@@ -98,6 +100,7 @@ export default function Modal({ onClose }) {
             imageUrl: downloadURL,
             tags: tags,
             createdAt: serverTimestamp(),
+            isApproved: isApproved, // Automatically approve if type is "Meme"
           });
 
           setUploading(false);
@@ -105,7 +108,11 @@ export default function Modal({ onClose }) {
           setImageFile(null);
           setTags([]);
 
-          router.push(`/profile/${auth.currentUser.uid}`); // Redirect to the user's profile page after submission
+          if (selectedType === "Original") {
+            toast.success("Your original content is awaiting approval!");
+          } else {
+            router.push(`/profile/${auth.currentUser.uid}`); // Redirect to the user's profile page after submission
+          }
         }
       );
     } catch (error) {
@@ -156,7 +163,7 @@ export default function Modal({ onClose }) {
             </select>
 
             {selectedType === "Original" && (
-              <p className="text-sm text-gray-400 mt-2 ">
+              <p className="text-sm text-gray-400 mt-2">
                 Original content needs admin approval.
               </p>
             )}
@@ -251,11 +258,11 @@ export default function Modal({ onClose }) {
               )}
             </button>
             <button
+              type="button"
               onClick={onClose}
-              type="submit"
               className="w-full ml-1 p-3 rounded-lg text-white font-semibold bg-yellow-500 hover:bg-yellow-400 transition-all duration-300 ease-in-out"
             >
-              Close
+              Cancel
             </button>
           </div>
         </form>
