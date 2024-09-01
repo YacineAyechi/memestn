@@ -26,6 +26,7 @@ import NoMemesFound from "@/components/custom/NoMemesFound";
 import NoMemesFoundLogIn from "@/components/custom/NoMemesFoundLogIn";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import AdComponent from "@/components/custom/AdComponent";
 
 export default function Home() {
   const router = useRouter();
@@ -240,7 +241,7 @@ export default function Home() {
         <div className="w-full max-w-3xl">
           {/* Left Ad Placeholder */}
           <div className="w-full bg-gray-200 rounded-md mb-6 p-4">
-            <p className="text-gray-600">Your Ad Here</p>
+            <p>Ad</p>
           </div>
           {memes.length > 0 ? (
             memes.map((meme) => (
@@ -369,7 +370,6 @@ export default function Home() {
               <Loader />
             </div>
           )}
-
           <div ref={loaderRef} className="text-center p-4">
             {loading && <Loader />}
           </div>
