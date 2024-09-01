@@ -13,7 +13,7 @@ export default function AdComponent() {
   }, []);
 
   return (
-    <div className="w-full bg-gray-200 rounded-md mb-6 p-4">
+    <div className="w-full rounded-md mb-6 p-4">
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
