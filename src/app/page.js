@@ -27,6 +27,7 @@ import NoMemesFoundLogIn from "@/components/custom/NoMemesFoundLogIn";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import AdComponent from "@/components/custom/AdComponent";
+import AdBanner from "@/components/custom/AdBanner";
 
 export default function Home() {
   const router = useRouter();
@@ -240,9 +241,11 @@ export default function Home() {
 
         <div className="w-full max-w-3xl">
           {/* Left Ad Placeholder */}
-          <div className="w-full bg-gray-200 rounded-md mb-6 p-4">
-            <p>Ad</p>
-          </div>
+          <AdBanner
+            dataAdFormalt="auto"
+            dataFullWidthResponsive={true}
+            dataAdSlot=""
+          />
           {memes.length > 0 ? (
             memes.map((meme) => (
               <div key={meme.id} className="mb-6">
