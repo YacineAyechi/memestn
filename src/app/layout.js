@@ -3,7 +3,6 @@ import "./globals.css";
 import Footer from "@/components/custom/Footer";
 import Navbar from "@/components/custom/Navbar";
 import Script from "next/script";
-import AdComponent from "@/components/custom/AdComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +15,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <AdComponent />
+        <Script
+          id="adsense-script"
+          strategy="afterInteractive"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4926211598967441"
+        />
       </head>
       <body className={inter.className}>
         <main>
