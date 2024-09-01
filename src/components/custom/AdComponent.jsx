@@ -4,11 +4,12 @@ import { useEffect } from "react";
 
 export default function AdComponent() {
   useEffect(() => {
-    // Initialize the ads after the component mounts
-    const ads = document.querySelectorAll(".adsbygoogle");
-    ads.forEach((ad) => {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    });
+    var ads = document.getElementsByClassName("adsbygoogle").length;
+    for (var i = 0; i < ads; i++) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch (e) {}
+    }
   }, []);
 
   return (
