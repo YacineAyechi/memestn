@@ -113,6 +113,8 @@ export default function Modal({ onClose }) {
           } else {
             router.push(`/profile/${auth.currentUser.uid}`); // Redirect to the user's profile page after submission
           }
+
+          onClose();
         }
       );
     } catch (error) {

@@ -35,7 +35,7 @@ function SearchT() {
         placeholder="Search..."
         value={searchQuery}
         onChange={handleSearchChange}
-        onKeyDown={handleKeyDown} // Add this line
+        onKeyDown={handleKeyDown}
         className="w-24 sm:w-72 md:w-96 bg-[#2D3748]"
       />
       <button onClick={handleSearch}>

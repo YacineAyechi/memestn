@@ -288,9 +288,15 @@ export default function Home() {
                   </div>
 
                   {meme.type === "Original" ? (
-                    <div className="badge badge-outline ml-2 mt-0.5">
+                    <span class="whitespace-nowrap rounded-full border border-white px-2.5 py-0 text-sm text-white ml-2">
                       Original
-                    </div>
+                    </span>
+                  ) : null}
+
+                  {meme.type === "Original" && meme.isApproved ? (
+                    <span class="whitespace-nowrap rounded-full border border-green-500 bg-green-500 px-2.5 py-0 text-sm text-white ml-2">
+                      Approved
+                    </span>
                   ) : null}
                 </div>
 

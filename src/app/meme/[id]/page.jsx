@@ -229,7 +229,7 @@ export default function MemeDetailPage() {
                   <p className="bg-[#E2E8F0] w-2 h-2 rounded-full ml-2 mr-2"></p>
                 </div>
 
-                <div>
+                <div className="flex items-center">
                   <p className="text-sm text-[#A0AEC0]">
                     {meme.createdAt
                       ? formatDistanceToNow(meme.createdAt.toDate(), {
@@ -237,6 +237,17 @@ export default function MemeDetailPage() {
                         })
                       : "Unknown time"}
                   </p>
+                  {meme.type === "Original" ? (
+                    <span class="whitespace-nowrap rounded-full border border-white px-2.5 py-0 text-sm text-white ml-2">
+                      Original
+                    </span>
+                  ) : null}
+
+                  {meme.type === "Original" && meme.isApproved ? (
+                    <span class="whitespace-nowrap rounded-full border border-green-500 bg-green-500 px-2.5 py-0 text-sm text-white ml-2">
+                      Approved
+                    </span>
+                  ) : null}
                 </div>
               </div>
 
@@ -376,10 +387,26 @@ export default function MemeDetailPage() {
               {comments.length > 0 ? (
                 <ul className="space-y-2">
                   {comments.map((c, index) => (
-                    <li key={index} className="flex items-center">
-                      <UserProfileLink sizeClass="w-8 h-8" userId={c.userId} />
-                      <span className="font-bold mr-1">:</span>
-                      <p className="">{c.text}</p>
+                    // <li key={index} className="flex items-center">
+                    //   <UserProfileLink sizeClass="w-8 h-8" userId={c.userId} />
+                    //   <span className="font-bold mr-1">:</span>
+                    //   <div className="w-10">
+                    //     <p className="flex w-full break-words">{c.text}</p>
+                    //   </div>
+                    // </li>
+                    <li
+                      key={index}
+                      className="bg-[#2D3748] p-4 rounded-lg max-w-full"
+                    >
+                      <div className="flex items-center space-x-2 mb-2">
+                        <UserProfileLink
+                          sizeClass="w-8 h-8"
+                          userId={c.userId}
+                        />
+                      </div>
+                      <p className="text-white max-w-full break-words">
+                        {c.text}
+                      </p>
                     </li>
                   ))}
                 </ul>
@@ -387,6 +414,7 @@ export default function MemeDetailPage() {
                 <p>No comments yet.</p>
               )}
             </div>
+
             {userLoggedIn ? (
               <form onSubmit={handleCommentSubmit} className="flex flex-col">
                 <textarea

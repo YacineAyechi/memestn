@@ -148,7 +148,6 @@ export default function UserProfilePage({ params }) {
     switch (selectedTab) {
       case "memes":
         return <Memes userId={uid} />;
-
       case "ogmemes":
         return <OgMemes userId={uid} />;
       case "reposts":
