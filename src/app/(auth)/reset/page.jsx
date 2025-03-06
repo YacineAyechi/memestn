@@ -21,7 +21,7 @@ export default function ResetPage() {
       </h1>
       <form
         onSubmit={handleSubmit}
-        className="p-6 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
+        className="p-6 bg-[--primary-bg] rounded-lg shadow-lg w-full max-w-md"
       >
         <div className="mb-4">
           <label className="text-white block">Enter your Email Address</label>

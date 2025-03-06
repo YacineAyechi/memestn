@@ -234,7 +234,7 @@ export default function Home() {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center bg-[#1a202c] px-4 pb-4">
+      <div className="flex flex-col items-center justify-center bg-[--primary-bg] px-4 pb-4">
         <title>DHA7AKNA | Home </title>
         <Toaster />
 
@@ -306,8 +306,8 @@ export default function Home() {
                       src={meme.imageUrl || "/meme-placeholder.jpg"}
                       alt={meme.caption || "Meme Image"}
                       className="rounded-3xl object-cover w-full h-full"
-                      width={900}
-                      height={900}
+                      width={1920}
+                      height={1080}
                       priority
                     />
                   </div>

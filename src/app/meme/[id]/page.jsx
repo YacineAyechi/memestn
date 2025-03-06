@@ -65,7 +65,6 @@ export default function MemeDetailPage() {
         const userRef = doc(db, "users", memeData.uid);
         const userDoc = await getDoc(userRef);
         if (userDoc.exists()) {
-          console.log("User data fetched successfully:", userDoc.data());
           setUsername(userDoc.data().name);
         } else {
           console.log("User document does not exist.");
@@ -215,7 +214,7 @@ export default function MemeDetailPage() {
   };
 
   return (
-    <div className="text-white bg-[#1a202c] min-h-screen">
+    <div className="text-white bg-[--primary-bg] min-h-screen">
       <title>DHA7AKNA</title>
       <Toaster />
       {meme ? (
@@ -238,13 +237,13 @@ export default function MemeDetailPage() {
                       : "Unknown time"}
                   </p>
                   {meme.type === "Original" ? (
-                    <span class="whitespace-nowrap rounded-full border border-white px-2.5 py-0 text-sm text-white ml-2">
+                    <span className="whitespace-nowrap rounded-full border border-white px-2.5 py-0 text-sm text-white ml-2">
                       Original
                     </span>
                   ) : null}
 
                   {meme.type === "Original" && meme.isApproved ? (
-                    <span class="whitespace-nowrap rounded-full border border-green-500 bg-green-500 px-2.5 py-0 text-sm text-white ml-2">
+                    <span className="whitespace-nowrap rounded-full border border-green-500 bg-green-500 px-2.5 py-0 text-sm text-white ml-2">
                       Approved
                     </span>
                   ) : null}

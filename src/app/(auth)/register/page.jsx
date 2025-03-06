@@ -78,8 +78,6 @@ function RegisterPage() {
         following: 0, // Initialize following to 0
       });
 
-      console.log("User registered and data saved:", user.uid);
-
       // Redirect to home or another page
       router.push("/");
     } catch (error) {
@@ -94,7 +92,7 @@ function RegisterPage() {
 
       <form
         onSubmit={handleSignUp}
-        className="p-6 md:p-8 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
+        className="p-6 md:p-8 bg-[--primary-bg] rounded-lg shadow-lg w-full max-w-md"
       >
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <div>

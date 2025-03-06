@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Card() {
   return (
-    <div className="flex items-center justify-center h-screen bg-[#1A202C]">
+    <div className="flex items-center justify-center h-screen bg-[--primary-bg]">
       <div>
         <div className="flex items-center">
           <Link href={"/"} className="flex items-center">

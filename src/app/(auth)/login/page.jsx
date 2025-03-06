@@ -70,7 +70,7 @@ function LoginPage() {
       <title>DHA7AKNA | Sign In</title>
       <form
         onSubmit={handleSignIn}
-        className="p-6 md:p-8 bg-[#1A202C] rounded-lg shadow-lg w-full max-w-md"
+        className="p-6 md:p-8 bg-[--primary-bg] rounded-lg shadow-lg w-full max-w-md"
       >
         {/* {error && <p className="text-red-500 mb-4">{error}</p>} */}
         {error && (

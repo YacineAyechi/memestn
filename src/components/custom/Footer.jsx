@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="p-6">
       <div className="flex items-center justify-center mb-4">
         <Link
-          href=""
+          href="https://www.facebook.com/people/Dha7akna/61567774665170/"
           target="_blank"
           className="text-[#E2E8F0] hover:text-[#8FA6CB] transition-colors duration-300"
         >
